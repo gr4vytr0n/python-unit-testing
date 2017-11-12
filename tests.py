@@ -1,4 +1,4 @@
-import roman as rm
+from roman import *
 import unittest
 
 class KnownValues(unittest.TestCase):
@@ -9,13 +9,24 @@ class KnownValues(unittest.TestCase):
   def test_to_roman_known_values(self):
     '''to_roman should give known result with known input'''
     for integer, numeral in self.known_values:
-      result = rm.to_roman(integer)
+      result = to_roman(integer)
       self.assertEqual(numeral, result)
   
   # halt and catch fire -- on values greater than 10
-  def test_to_roman_out_of_range_values(self):
-    '''to_roman should fail with input values greaer than 10'''
-    self.assertRaises(rm.OutOfRangeError, rm.to_roman, 11)
+  def test_to_roman_out_of_range_values_more(self):
+    '''to_roman should fail with input values greater than 10'''
+    self.assertRaises(OutOfRangeError, to_roman, 11)
+
+  # halt and catch fire -- on values less than or equal to 0
+  def test_to_roman_out_of_range_values_less(self):
+    '''to_roman should fail with input values less than or equal to 0'''
+    self.assertRaises(OutOfRangeError, to_roman, 0)
+    self.assertRaises(OutOfRangeError, to_roman, -5)
+
+  def test_to_roman_non_integer(self):
+    '''to_roman should fail with non integer input values'''
+    self.assertRaises(NotIntegerError, to_roman, 'string')
+    self.assertRaises(NotIntegerError, to_roman, 0.5) 
 
 if __name__ == '__main__':
   unittest.main()
